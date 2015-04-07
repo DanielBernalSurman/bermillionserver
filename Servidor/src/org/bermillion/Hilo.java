@@ -13,8 +13,8 @@ public class Hilo extends Thread
 	int puerto=0;
 	ServerSocket servidorhilo=null;
 	Socket clientehilo=null;
-	DataInputStream dis=null;
-	DataOutputStream dos=null;
+	ObjectInputStream ois=null;
+	ObjectOutputStream oos=null;
 	
 	
 	
@@ -25,8 +25,10 @@ public class Hilo extends Thread
 	
 	public void run()
 	{
-		CMen_Object recibido=null,enviar=null;
-		Object recibidotrad=null;
+		String data_req[]=new String[3];
+		String data_resp[]=new String[3];
+		
+		// 1: tipo, 2: mensaje, 3: estado
 		
 		//abrimos un servidor con puerto dedicado
 		try
@@ -41,32 +43,31 @@ public class Hilo extends Thread
 				if(clientehilo.isConnected())
 				{
 					try
-					{
-						ObjectOutputStream oos=new ObjectOutputStream(clientehilo.getOutputStream());
-						ObjectInputStream ois=new ObjectInputStream(clientehilo.getInputStream());
-						
+					{					
+						ois=new ObjectInputStream(clientehilo.getInputStream());
+						oos=new ObjectOutputStream(clientehilo.getOutputStream());
 							try
 							{
 								
-								recibidotrad=ois.readObject();
+								data_req=(String[])ois.readObject();
 							}
 							catch(Exception e)
 							{
 								System.out.println("Error al recibir el mensaje");
 							}
 							
-							switch(recibido.getType())
+							switch(data_req[0])
 							{
-								case 1:
-									enviar=Exist(recibido);
+								case "1":
+									data_resp=Exist(data_req);
 								default:
 									break;
 							}
 							
 							try
 							{
-								
-								oos.writeObject(enviar);
+								System.out.println(data_resp[2]);
+								oos.writeObject(data_resp);
 							}
 							catch(Exception e)
 							{
@@ -124,17 +125,21 @@ public class Hilo extends Thread
 	
 	/*Metodos de gestion de tipos*/
 	
-	public CMen_Object Exist(CMen_Object obj)
+	public String[] Exist(String[] data)
 	{
-		CMen_Object objresp;
-		if(Connections.ComprobarUsuario(obj.getMes()))
+		String[] data_res=new String[3];
+		if(Connections.ComprobarUsuario(data[1]))
 		{
-			objresp=new CMen_Object(true,"",1);
+			data_res[0]="1";
+			data_res[1]="";
+			data_res[2]="true";
 		}
 		else
 		{
-			objresp=new CMen_Object(false,"",1);
+			data_res[0]="1";
+			data_res[1]="";
+			data_res[2]="false";
 		}
-		return objresp;
+		return data_res;
 	}
 }

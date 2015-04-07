@@ -66,7 +66,10 @@ public class Connections
 			Statement orden=conexion.createStatement();
 			ResultSet resp=orden.executeQuery(sentencia);
 			
-			if(resp.getRow()==0)
+			resp.beforeFirst();
+			resp.next();
+			
+			if(resp.getRow()==1)
 			{
 				existe=false;
 			}
