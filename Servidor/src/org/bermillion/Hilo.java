@@ -9,6 +9,7 @@ import java.net.Socket;
 
 public class Hilo extends Thread
 {
+	//yoquese
 	int puerto=0;
 	ServerSocket servidorhilo=null;
 	Socket clientehilo=null;
