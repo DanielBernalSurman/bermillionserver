@@ -127,7 +127,7 @@ public class Hilo extends Thread
 	public CMen_Object Exist(CMen_Object obj)
 	{
 		CMen_Object objresp;
-		if(Connections.ComprobarUsuario(obj.getMen()))
+		if(Connections.ComprobarUsuario(obj.getMes()))
 		{
 			objresp=new CMen_Object(true,"",1);
 		}
