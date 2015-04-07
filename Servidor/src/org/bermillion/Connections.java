@@ -2,6 +2,7 @@ package org.bermillion;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class Connections 
@@ -29,6 +30,8 @@ public class Connections
 		
 		return conexion;
 	}
+	
+	/*Ingresar nuevo usuario*/
 	public static void NuevoUser(String reg)
 	{
 		Connection conexion=getConnection();
@@ -51,5 +54,42 @@ public class Connections
 		{
 			System.out.println("Error al cerrar la conexion (Connections)");
 		}
+	}
+	
+	/*Comprpbar si existe nombre_usuario*/
+	public static boolean ComprobarUsuario(String sentencia)
+	{
+		Connection conexion=getConnection();
+		boolean existe;
+		try
+		{
+			Statement orden=conexion.createStatement();
+			ResultSet resp=orden.executeQuery(sentencia);
+			
+			if(resp.getRow()==0)
+			{
+				existe=false;
+			}
+			else existe=true;
+			
+			
+			orden.close();
+		}
+		catch(Exception e)
+		{
+			System.out.println("Error al insertar nuevo usuario(Connections)");
+			existe=true;
+		}
+		try
+		{
+			conexion.close();
+		}
+		catch(Exception e)
+		{
+			System.out.println("Error al cerrar la conexion (Connections)");
+			existe=true;
+		}
+		
+		return existe;
 	}
 }
