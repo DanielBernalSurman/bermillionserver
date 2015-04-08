@@ -6,6 +6,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.Connection;
+import java.sql.DriverManager;
 
 public class Hilo extends Thread
 {
@@ -16,6 +18,8 @@ public class Hilo extends Thread
 	ObjectInputStream ois=null;
 	ObjectOutputStream oos=null;
 	
+	public static Connection conexion=null;
+	
 	
 	
 	public Hilo(int puerto)
@@ -23,6 +27,30 @@ public class Hilo extends Thread
 		this.puerto=puerto;
 	}
 	
+	
+	//Iniciar base de datos
+	private static void getConnection()
+	{
+		conexion=null;
+		try
+		{
+			Class.forName("com.mysql.jdbc.Driver");
+			
+			try
+			{
+				conexion=DriverManager.getConnection("jdbc:mysql://localhost/bermillion","root","");
+			}
+			catch(Exception e)
+			{
+				System.out.println("Error al abrir conexion con base de datos (Connections)");
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println("Error al cargar el driver (Connections)");
+		}
+		
+	}
 	public void run()
 	{
 		String data_req[]=new String[3];
@@ -60,6 +88,8 @@ public class Hilo extends Thread
 							{
 								case "1":
 									data_resp=Exist(data_req);
+								case "2":
+									data_resp=Registrar(data_req);
 								default:
 									break;
 							}
@@ -140,6 +170,13 @@ public class Hilo extends Thread
 			data_res[1]="";
 			data_res[2]="false";
 		}
+		return data_res;
+	}
+	
+	public String[] Registrar(String[] data)
+	{
+		String[] data_res=new String[3];
+		Connections.RegistrarUsuario(data[1]);
 		return data_res;
 	}
 }
