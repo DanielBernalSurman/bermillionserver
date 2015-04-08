@@ -11,7 +11,7 @@ public class Connections
 	/*Ingresar nuevo usuario*/
 	public static void RegistrarUsuario(String reg)
 	{
-		Connection conexion=Hilo.conexion;
+		Connection conexion=MainServidor.conexion;
 		try
 		{
 			Statement orden=conexion.createStatement();
@@ -28,7 +28,7 @@ public class Connections
 	/*Comprpbar si existe nombre_usuario*/
 	public static boolean ComprobarUsuario(String sentencia)
 	{
-		Connection conexion=Hilo.conexion;
+		Connection conexion=MainServidor.conexion;
 		boolean existe;
 		try
 		{

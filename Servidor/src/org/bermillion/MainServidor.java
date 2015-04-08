@@ -4,6 +4,8 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.Connection;
+import java.sql.DriverManager;
 
 public class MainServidor 
 {
@@ -14,8 +16,35 @@ public class MainServidor
 	static DataInputStream dis=null;
 	static DataOutputStream dos=null;
 	
+	public static Connection conexion=null;
+	
+	
+	//Iniciar bd
+	private static void InitConnection()
+	{
+		conexion=null;
+		try
+		{
+			Class.forName("com.mysql.jdbc.Driver");
+			
+			try
+			{
+				conexion=DriverManager.getConnection("jdbc:mysql://localhost/bermillion","root","");
+			}
+			catch(Exception e)
+			{
+				System.out.println("Error al abrir conexion con base de datos (Connections)");
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println("Error al cargar el driver (Connections)");
+		}
+		
+	}
 	public static void main (String[]arg)
 	{
+		InitConnection();
 		try
 		{
 			//creamos e inicializamos un array en el que contendra un numero y un indicador de si esta ocupado o no

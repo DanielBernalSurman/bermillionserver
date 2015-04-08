@@ -18,7 +18,7 @@ public class Hilo extends Thread
 	ObjectInputStream ois=null;
 	ObjectOutputStream oos=null;
 	
-	public static Connection conexion=null;
+
 	
 	
 	
@@ -28,29 +28,7 @@ public class Hilo extends Thread
 	}
 	
 	
-	//Iniciar base de datos
-	private static void getConnection()
-	{
-		conexion=null;
-		try
-		{
-			Class.forName("com.mysql.jdbc.Driver");
-			
-			try
-			{
-				conexion=DriverManager.getConnection("jdbc:mysql://localhost/bermillion","root","");
-			}
-			catch(Exception e)
-			{
-				System.out.println("Error al abrir conexion con base de datos (Connections)");
-			}
-		}
-		catch(Exception e)
-		{
-			System.out.println("Error al cargar el driver (Connections)");
-		}
-		
-	}
+	
 	public void run()
 	{
 		String data_req[]=new String[3];
