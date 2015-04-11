@@ -1,13 +1,9 @@
 package org.bermillion;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.sql.Connection;
-import java.sql.DriverManager;
 
 public class Hilo extends Thread
 {
@@ -27,7 +23,7 @@ public class Hilo extends Thread
 		this.puerto=puerto;
 	}
 	
-	
+
 	
 	public void run()
 	{
@@ -62,19 +58,25 @@ public class Hilo extends Thread
 								System.out.println("Error al recibir el mensaje");
 							}
 							
+							
 							switch(data_req[0])
 							{
 								case "1":
-									data_resp=Exist(data_req);
+									data_resp=Case1(data_req);
+									break;
 								case "2":
-									data_resp=Registrar(data_req);
+									data_resp=Case2(data_req);
+									break;
+								case "3":
+									data_resp=Case3(data_req);
+									break;
 								default:
 									break;
 							}
 							
+							System.out.println(data_req[1]);
 							try
 							{
-								System.out.println(data_resp[2]);
 								oos.writeObject(data_resp);
 							}
 							catch(Exception e)
@@ -133,7 +135,7 @@ public class Hilo extends Thread
 	
 	/*Metodos de gestion de tipos*/
 	
-	public String[] Exist(String[] data)
+	public String[] Case1(String[] data)
 	{
 		String[] data_res=new String[3];
 		if(Connections.ComprobarUsuario(data[1]))
@@ -148,13 +150,36 @@ public class Hilo extends Thread
 			data_res[1]="";
 			data_res[2]="false";
 		}
+		
 		return data_res;
 	}
 	
-	public String[] Registrar(String[] data)
+	public String[] Case2(String[] data)
 	{
 		String[] data_res=new String[3];
 		Connections.RegistrarUsuario(data[1]);
+		
+		data_res[0]="2";
+		data_res[1]="";
+		data_res[2]="true";
+		
+		return data_res;
+	}
+	private String[] Case3(String[] data)
+	{
+		String[] data_res=new String[3];
+		
+		if(Connections.Login(data[1], data[2]))
+		{
+			data_res[0]="3";
+			data_res[1]="true";
+		}
+		else
+		{
+			data_res[0]="3";
+			data_res[1]="false";
+		}
+		
 		return data_res;
 	}
 }
