@@ -103,7 +103,7 @@ public class Connections
 	{
 		Connection conexion=getConnection();
 		boolean isOk=false;
-		//errererererer
+		//holahola
 		try
 		{
 			Statement query=conexion.createStatement();
