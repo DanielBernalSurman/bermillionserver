@@ -99,26 +99,33 @@ public class Connections
 		
 		return existe;
 	}
-	public static boolean Login(String sentencia, String pass)
+	public static String[] Login(String user, String pass)
 	{
 		Connection conexion=getConnection();
-		boolean isOk=false;
-		//holahola
+		String[] data_res = new String[3];
 		try
 		{
 			Statement query=conexion.createStatement();
-			ResultSet result=query.executeQuery(sentencia);
+			ResultSet result=query.executeQuery("select password,cod_usuario from usuarios where nombre_usuario='"+user+"'");
 			
 			result.next();
 			
 			String bdpass=result.getString(1);
+			String cod_user=result.getString(2);
 			System.out.println(bdpass);
 			System.out.println(pass);
 			
-			if(pass.equals(bdpass)){
-				isOk=true;
+			if(pass.equals(bdpass))
+			{
+				data_res[0]="3";
+				data_res[1]="true";
+				data_res[2]=cod_user.toString();
 			}
-			else isOk=false;
+			else 
+			{
+				data_res[0]="3";
+				data_res[1]="false";
+			}
 			
 			result.close();
 			query.close();
@@ -126,7 +133,6 @@ public class Connections
 		catch(Exception e)
 		{
 			System.out.println("Error al Loguear (Login/Connections)"+e.getMessage().toString());
-			isOk=false;
 		}
 		
 		try
@@ -138,6 +144,38 @@ public class Connections
 			System.out.println("Error al cerrar la conexion (Login/Connections)");
 		}
 		
-		return isOk;
+		return data_res;
+	}
+	
+	public static void InsertarMovimientoHogar(String[] data) {
+		Connection conexion=getConnection();
+		
+		try {
+			Statement cod=conexion.createStatement();
+			ResultSet res=cod.executeQuery("select MAX(cod_gasto) from gastos");
+
+			res.next();
+			int cod_u=res.getInt(1);
+			System.out.println(cod_u);
+			String sentencia=("insert into gastos values("+(cod_u+1)+","+data[1]);
+			
+			System.out.println(sentencia);
+			Statement orden=conexion.createStatement();
+			orden.execute(sentencia);
+
+			res.close();
+		}
+		catch(Exception e) {
+			System.out.println("Error al insertar movimiento (InsertarMovimientoHogar/Connections)"+e.getMessage().toString());
+		}
+		
+		try{
+			
+			
+			conexion.close();
+		} catch(Exception e) {
+			System.out.println("Error al cerrar conexion BBDD");
+		}
+		
 	}
 }

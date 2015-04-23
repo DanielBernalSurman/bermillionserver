@@ -70,11 +70,13 @@ public class Hilo extends Thread
 								case "3":
 									data_resp=Case3(data_req);
 									break;
+								case "4":
+									data_resp=Case4(data_req);
+									break;
 								default:
 									break;
 							}
 							
-							System.out.println(data_req[1]);
 							try
 							{
 								oos.writeObject(data_resp);
@@ -169,16 +171,19 @@ public class Hilo extends Thread
 	{
 		String[] data_res=new String[3];
 		
-		if(Connections.Login(data[1], data[2]))
-		{
-			data_res[0]="3";
-			data_res[1]="true";
-		}
-		else
-		{
-			data_res[0]="3";
-			data_res[1]="false";
-		}
+		data_res = Connections.Login(data[1], data[2]);
+		
+		return data_res;
+	}
+	
+	public String[] Case4(String[] data)
+	{
+		String[] data_res= new String[3];
+		Connections.InsertarMovimientoHogar(data);
+		
+		data_res[0]="4";
+		data_res[1]="";
+		data_res[2]="true";
 		
 		return data_res;
 	}
