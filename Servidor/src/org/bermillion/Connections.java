@@ -186,17 +186,6 @@ public class Connections
 			
 
 			data_res = Funciones.MostrarRes(res, data[0]);			
-			
-			if(data!= null) {
-				for(int i=0;i<data_res.length;++i)
-				{
-					for(int j=0;j<data_res[i].length;++j)
-					{
-						System.out.println(data_res[i][j]);
-					}
-					System.out.println("\n");
-				}
-			}
 		}
 		catch(Exception e)
 		{
