@@ -27,8 +27,9 @@ public class Hilo extends Thread
 	
 	public void run()
 	{
-		String data_req[]=new String[3];
-		String data_resp[]=new String[3];
+		String data_req[] = null;
+		String data_resp[] = null;
+		String data_respD[][] = null;
 		
 		// 1: tipo, 2: mensaje, 3: estado
 		
@@ -52,6 +53,7 @@ public class Hilo extends Thread
 							{
 								
 								data_req=(String[])ois.readObject();
+								
 							}
 							catch(Exception e)
 							{
@@ -73,13 +75,22 @@ public class Hilo extends Thread
 								case "4":
 									data_resp=Case4(data_req);
 									break;
+								case "5":
+									data_respD=Case5(data_req);
+									break;
 								default:
 									break;
 							}
 							
 							try
 							{
+								if(data_resp != null) {
 								oos.writeObject(data_resp);
+								} else
+								{
+									oos.writeObject(data_respD);
+								}
+								
 							}
 							catch(Exception e)
 							{
@@ -184,6 +195,14 @@ public class Hilo extends Thread
 		data_res[0]="4";
 		data_res[1]="";
 		data_res[2]="true";
+		
+		return data_res;
+	}
+	
+	public String[][] Case5(String[] data)
+	{
+		String[][] data_res;
+		data_res = Connections.solicitarMovimientos(data);
 		
 		return data_res;
 	}

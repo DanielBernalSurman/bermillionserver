@@ -112,8 +112,6 @@ public class Connections
 			
 			String bdpass=result.getString(1);
 			String cod_user=result.getString(2);
-			System.out.println(bdpass);
-			System.out.println(pass);
 			
 			if(pass.equals(bdpass))
 			{
@@ -156,10 +154,8 @@ public class Connections
 
 			res.next();
 			int cod_u=res.getInt(1);
-			System.out.println(cod_u);
 			String sentencia=("insert into gastos values("+(cod_u+1)+","+data[1]);
 			
-			System.out.println(sentencia);
 			Statement orden=conexion.createStatement();
 			orden.execute(sentencia);
 
@@ -177,5 +173,36 @@ public class Connections
 			System.out.println("Error al cerrar conexion BBDD");
 		}
 		
+	}
+	
+	public static String[][] solicitarMovimientos (String[] data) {
+		
+		Connection conexion = getConnection();
+		String[][] data_res = null;		
+		try
+		{
+			Statement query = conexion.createStatement();
+			ResultSet res = query.executeQuery("select * from gastos where usuarios_cod_usuario="+data[1]);
+			
+
+			data_res = Funciones.MostrarRes(res, data[0]);			
+			
+			if(data!= null) {
+				for(int i=0;i<data_res.length;++i)
+				{
+					for(int j=0;j<data_res[i].length;++j)
+					{
+						System.out.println(data_res[i][j]);
+					}
+					System.out.println("\n");
+				}
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage().toString());
+		}
+		
+		return data_res;
 	}
 }
