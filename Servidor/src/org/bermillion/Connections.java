@@ -102,22 +102,24 @@ public class Connections
 	public static String[] Login(String user, String pass)
 	{
 		Connection conexion=getConnection();
-		String[] data_res = new String[3];
+		String[] data_res = new String[4];
 		try
 		{
 			Statement query=conexion.createStatement();
-			ResultSet result=query.executeQuery("select password,cod_usuario from usuarios where nombre_usuario='"+user+"'");
+			ResultSet result=query.executeQuery("select password,cod_usuario,tipo from usuarios where nombre_usuario='"+user+"'");
 			
 			result.next();
 			
 			String bdpass=result.getString(1);
 			String cod_user=result.getString(2);
+			String tipo_user=result.getString(3);
 			
 			if(pass.equals(bdpass))
 			{
 				data_res[0]="3";
 				data_res[1]="true";
-				data_res[2]=cod_user.toString();
+				data_res[2]=cod_user;
+				data_res[3]=tipo_user;
 			}
 			else 
 			{
@@ -183,6 +185,26 @@ public class Connections
 		{
 			Statement query = conexion.createStatement();
 			ResultSet res = query.executeQuery("select * from gastos where usuarios_cod_usuario="+data[1]);
+			
+
+			data_res = Funciones.MostrarRes(res, data[0]);			
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage().toString());
+		}
+		
+		return data_res;
+	}
+	
+	public static String[][] solicitarContactos (String[] data) {
+		
+		Connection conexion = getConnection();
+		String[][] data_res = null;		
+		try
+		{
+			Statement query = conexion.createStatement();
+			ResultSet res = query.executeQuery("select * from contactos where usuarios_cod_usuario="+data[1]);
 			
 
 			data_res = Funciones.MostrarRes(res, data[0]);			

@@ -70,13 +70,16 @@ public class Hilo extends Thread
 									data_resp=Case2(data_req);
 									break;
 								case "3":
-									data_resp=Case3(data_req);
+									data_resp=(String[])Case3(data_req);
 									break;
 								case "4":
 									data_resp=Case4(data_req);
 									break;
 								case "5":
 									data_respD=Case5(data_req);
+									break;
+								case "6":
+									data_respD=Case6(data_req);
 									break;
 								default:
 									break;
@@ -180,7 +183,7 @@ public class Hilo extends Thread
 	}
 	private String[] Case3(String[] data)
 	{
-		String[] data_res=new String[3];
+		String[] data_res;
 		
 		data_res = Connections.Login(data[1], data[2]);
 		
@@ -203,6 +206,14 @@ public class Hilo extends Thread
 	{
 		String[][] data_res;
 		data_res = Connections.solicitarMovimientos(data);
+		
+		return data_res;
+	}
+	
+	public String[][] Case6(String[] data)
+	{
+		String[][] data_res;
+		data_res = Connections.solicitarContactos(data);
 		
 		return data_res;
 	}
