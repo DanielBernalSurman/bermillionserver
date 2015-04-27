@@ -77,9 +77,14 @@ public class Hilo extends Thread
 									break;
 								case "5":
 									data_respD=Case5(data_req);
-									break;
+									break;								
 								case "6":
 									data_respD=Case6(data_req);
+									break;
+								case "7":
+									data_respD=Case7(data_req);
+									break;
+									
 								default:
 									break;
 							}
@@ -210,6 +215,14 @@ public class Hilo extends Thread
 	}
 	
 	public String[][] Case6(String[] data)
+	{
+		String[][] data_res;
+		data_res = Connections.solicitarContactos(data);
+		
+		return data_res;
+	}
+	
+	public String[][] Case7(String[] data)
 	{
 		String[][] data_res;
 		data_res=Connections.solicitarUnMovimiento(data);
