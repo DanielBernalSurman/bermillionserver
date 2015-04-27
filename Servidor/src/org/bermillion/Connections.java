@@ -194,4 +194,20 @@ public class Connections
 		
 		return data_res;
 	}
+	public static String[][] solicitarUnMovimiento (String[] data){
+		
+		Connection conexion=getConnection();
+		String[][] data_res=null;
+		try
+		{
+			Statement query=conexion.createStatement();
+			ResultSet res=query.executeQuery("select * from gastos where cod_gasto="+data[1]);
+			data_res=Funciones.MostrarRes(res, data[0]);
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage().toString());
+		}
+		return data_res;
+	}
 }
