@@ -211,7 +211,8 @@ public class Connections
 		{
 			System.out.println(e.getMessage().toString());
 		}
-		return data_res;}
+		return data_res;
+	}
 
 	
 	public static String[][] solicitarContactos (String[] data) {
