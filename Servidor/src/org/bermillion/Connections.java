@@ -151,17 +151,23 @@ public class Connections
 		Connection conexion=getConnection();
 		
 		try {
+			if(Integer.parseInt(data[2])==0 || data[2]==null){
 			Statement cod=conexion.createStatement();
 			ResultSet res=cod.executeQuery("select MAX(cod_gasto) from gastos");
 
 			res.next();
 			int cod_u=res.getInt(1);
 			String sentencia=("insert into gastos values("+(cod_u+1)+","+data[1]);
-			
+			res.close();
+			}
+			else{
+			String sentencia=("update gastos set");
 			Statement orden=conexion.createStatement();
 			orden.execute(sentencia);
 
-			res.close();
+			
+			}
+			
 		}
 		catch(Exception e) {
 			System.out.println("Error al insertar movimiento (InsertarMovimientoHogar/Connections)"+e.getMessage().toString());
