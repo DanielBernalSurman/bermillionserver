@@ -186,8 +186,17 @@ public class Connections
 			Statement query = conexion.createStatement();
 			ResultSet res = query.executeQuery("select * from gastos where usuarios_cod_usuario="+data[1]);
 			
-
-			data_res = Funciones.MostrarRes(res, data[0]);			
+			res.next();
+			if (res.getRow()==0) {
+				data_res= new String[1][2];
+				data_res[0][0]=data[0];
+				data_res[0][1]="No se encontró ningún contacto.";
+			} else {
+				
+				res.beforeFirst();
+				data_res = Funciones.MostrarRes(res, data[0]);
+			}	
+						
 		}
 		catch(Exception e)
 		{
@@ -205,18 +214,7 @@ public class Connections
 		{
 			Statement query=conexion.createStatement();
 			ResultSet res=query.executeQuery("select * from gastos where cod_gasto="+data[1]);
-			
-			res.next();
-			if (res.getRow()==0) {
-				data_res= new String[1][2];
-				data_res[0][0]=data[0];
-				data_res[0][1]="No se encontró ningún contacto.";
-			} else {
-				
-				res.beforeFirst();
-				data_res=Funciones.MostrarRes(res, data[0]);
-			}	
-			
+			data_res=Funciones.MostrarRes(res, data[0]);
 		}
 		catch(Exception e)
 		{
