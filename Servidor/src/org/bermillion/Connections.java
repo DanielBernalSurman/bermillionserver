@@ -192,8 +192,17 @@ public class Connections
 			Statement query = conexion.createStatement();
 			ResultSet res = query.executeQuery("select * from gastos where usuarios_cod_usuario="+data[1]);
 			
-
-			data_res = Funciones.MostrarRes(res, data[0]);			
+			res.next();
+			if (res.getRow()==0) {
+				data_res= new String[1][2];
+				data_res[0][0]=data[0];
+				data_res[0][1]="No se encontró ningún contacto.";
+			} else {
+				
+				res.beforeFirst();
+				data_res = Funciones.MostrarRes(res, data[0]);
+			}	
+						
 		}
 		catch(Exception e)
 		{
@@ -217,7 +226,8 @@ public class Connections
 		{
 			System.out.println(e.getMessage().toString());
 		}
-		return data_res;}
+		return data_res;
+	}
 
 	
 	public static String[][] solicitarContactos (String[] data) {
@@ -229,8 +239,16 @@ public class Connections
 			Statement query = conexion.createStatement();
 			ResultSet res = query.executeQuery("select * from contactos where usuarios_cod_usuario="+data[1]);
 			
-
-			data_res = Funciones.MostrarRes(res, data[0]);			
+			res.next();
+			if (res.getRow()==0) {
+				data_res= new String[1][2];
+				data_res[0][0]=data[0];
+				data_res[0][1]="No se encontró ningún contacto.";
+			} else {
+				
+				res.beforeFirst();
+				data_res = Funciones.MostrarRes(res, data[0]);		 
+			}	
 		}
 		catch(Exception e)
 		{
@@ -238,5 +256,35 @@ public class Connections
 		}
 
 		return data_res;
+	}
+	
+	public static void InsertarContacto (String[] data) {
+		
+		Connection conexion=getConnection();
+		
+		try {
+			Statement cod=conexion.createStatement();
+			ResultSet res=cod.executeQuery("select MAX(contacto_id) from contactos");
+
+			res.next();
+			int cod_u=res.getInt(1);
+			String sentencia=("insert into contactos values("+(cod_u+1)+","+Integer.parseInt(data[1])+",'"+data[2]+"','"+data[3]+"','"+data[4]+"')");
+			
+			Statement orden=conexion.createStatement();
+			orden.execute(sentencia);
+
+			res.close();
+		}
+		catch(Exception e) {
+			System.out.println("Error al insertar contacto (InsertarContacto/Connections)"+e.getMessage().toString());
+		}
+		
+		try{
+			
+			
+			conexion.close();
+		} catch(Exception e) {
+			System.out.println("Error insertar contacto");
+		}
 	}
 }

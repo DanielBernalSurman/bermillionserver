@@ -84,6 +84,9 @@ public class Hilo extends Thread
 								case "7":
 									data_respD=Case7(data_req);
 									break;
+								case "8":
+									data_resp=Case8(data_req);
+									break;
 									
 								default:
 									break;
@@ -229,5 +232,16 @@ public class Hilo extends Thread
 		
 		return data_res;
 	}
+	
+	public String[] Case8(String[] data) {
+		
+		
+		Connections.InsertarContacto(data);
+		String[] data_res = new String[2];
+		data_res[0] = "8";
+		data_res[1] = "true";
+		
+		return data_res;
+	} 
 	
 }
