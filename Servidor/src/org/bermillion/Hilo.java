@@ -87,6 +87,8 @@ public class Hilo extends Thread
 								case "8":
 									data_resp=Case8(data_req);
 									break;
+								case "9":
+									data_respD=Case9(data_req);
 									
 								default:
 									break;
@@ -242,6 +244,14 @@ public class Hilo extends Thread
 		data_res[1] = "true";
 		
 		return data_res;
-	} 
+	}
+	
+	public String[][] Case9(String[] data)
+	{
+		String[][] data_res;
+		data_res=Connections.solicitarUnMovimiento(data);
+		
+		return data_res;
+	}
 	
 }
