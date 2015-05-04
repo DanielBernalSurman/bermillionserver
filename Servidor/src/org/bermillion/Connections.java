@@ -321,4 +321,22 @@ public class Connections
 
 		return data_res;
 	}
+	public static String[] eliminarMovimiento (String[] data){
+		
+		Connection conexion=getConnection();
+		String[] data_res=null;
+		try
+		{
+			Statement query=conexion.createStatement();
+			ResultSet res=query.executeQuery("delete from gastos where cod_gasto="+data[1]);
+			System.out.println("Movimiento con código "+data[1]+" eliminado correctamente");
+			
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage().toString());
+		}
+		return data_res;
+	}
+
 }
