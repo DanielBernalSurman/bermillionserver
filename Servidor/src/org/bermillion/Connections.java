@@ -196,6 +196,7 @@ public class Connections
 		{
 			Statement query = conexion.createStatement();
 			ResultSet res = query.executeQuery("select * from gastos where usuarios_cod_usuario="+data[1]);
+			System.out.println(data[1]);
 			
 			res.next();
 			if (res.getRow()==0) {
@@ -340,6 +341,27 @@ public class Connections
 			System.out.println(e.getMessage().toString());
 		}
 		return data_res;
+	}
+	public static String[] buscarSaldo(String[] data){
+		Connection conexion=getConnection();
+		String[] data_res=new String[2];
+		try
+		{
+			Statement query=conexion.createStatement();
+			ResultSet res=query.executeQuery("select saldo from usuarios where cod_usuario="+data[1]);
+			res.first();
+			res.getString(0);
+			data_res[0]="12";
+			data_res[1]=res.getString(0);
+			
+			
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage().toString());
+		}
+		return data_res;
+		
 	}
 
 }

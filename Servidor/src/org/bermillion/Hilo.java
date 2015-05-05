@@ -95,6 +95,8 @@ public class Hilo extends Thread
 									break;
 								case "11":
 									data_resp=Case11(data_req);
+								case "12":
+									data_resp=Case12(data_req);
 								default:
 									break;
 							}
@@ -276,6 +278,13 @@ public class Hilo extends Thread
 		
 		
 		
+	}
+	
+	public String[] Case12(String[] data){
+		String[] data_res=new String[2];
+		data_res=Connections.buscarSaldo(data);
+		
+		return data_res;
 	}
 	
 }
