@@ -324,12 +324,15 @@ public class Connections
 	public static String[] eliminarMovimiento (String[] data){
 		
 		Connection conexion=getConnection();
-		String[] data_res=null;
+		String[] data_res=new String[2];
 		try
 		{
 			Statement query=conexion.createStatement();
-			ResultSet res=query.executeQuery("delete from gastos where cod_gasto="+data[1]);
+			int semaf=query.executeUpdate("delete from gastos where cod_gasto="+data[1]);
 			System.out.println("Movimiento con código "+data[1]+" eliminado correctamente");
+			data_res[0]="5";
+			data_res[1]=String.valueOf(semaf);
+			
 			
 		}
 		catch(Exception e)
