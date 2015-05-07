@@ -53,6 +53,7 @@ public class Hilo extends Thread
 							{
 								
 								data_req=(String[])ois.readObject();
+								System.out.println(data_req);
 								
 							}
 							catch(Exception e)
@@ -96,7 +97,7 @@ public class Hilo extends Thread
 								case "11":
 									data_resp=Case11(data_req);
 								case "12":
-									data_resp=Case12(data_req);
+									data_respD=Case12(data_req);
 								default:
 									break;
 							}
@@ -280,9 +281,9 @@ public class Hilo extends Thread
 		
 	}
 	
-	public String[] Case12(String[] data){
-		String[] data_res=new String[2];
-		data_res=Connections.buscarSaldo(data);
+	public String[][] Case12(String[] data){
+		String[][] data_res;
+		data_res=Connections.solicitarUnUsuario(data);
 		
 		return data_res;
 	}

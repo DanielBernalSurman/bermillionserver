@@ -342,26 +342,26 @@ public class Connections
 		}
 		return data_res;
 	}
-	public static String[] buscarSaldo(String[] data){
+public static String[][] solicitarUnUsuario (String[] data){
+		
 		Connection conexion=getConnection();
-		String[] data_res=new String[2];
+		String[][] data_res=null;
 		try
 		{
 			Statement query=conexion.createStatement();
-			ResultSet res=query.executeQuery("select saldo from usuarios where cod_usuario="+data[1]);
-			res.first();
-			res.getString(0);
-			data_res[0]="12";
-			data_res[1]=res.getString(0);
-			
-			
+			ResultSet res=query.executeQuery("select * from usuarios where cod_usuario="+data[1]);
+			data_res=Funciones.MostrarRes(res, data[0]);
+			for(int i=0; i<8;i++){
+				System.out.println(data_res[1][i]);
+			}
 		}
 		catch(Exception e)
 		{
 			System.out.println(e.getMessage().toString());
 		}
 		return data_res;
-		
 	}
+		
+	
 
 }
