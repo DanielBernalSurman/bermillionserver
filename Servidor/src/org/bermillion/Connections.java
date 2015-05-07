@@ -362,6 +362,34 @@ public static String[][] solicitarUnUsuario (String[] data){
 		return data_res;
 	}
 		
+	public static String[][] buscarMovimiento(String[] data) {
+		Connection conexion = getConnection();
+		String[][] data_res = null;
+		try {
+			
+			Statement sta = conexion.createStatement();
+			ResultSet res = sta.executeQuery("select * from gastos where descripcion like '%"+data[1]+"%' or"
+					+ " fecha like '%"+data[1]+"%' or importe like '%"+data[1]+"%' or concepto like '%"+data[1]+"%'");
+			
+			res.next();
+			if (res.getRow()==0) {
+				data_res= new String[1][2];
+				data_res[0][0]="5";
+				data_res[0][1]="No se encontró ningún movimiento.";
+			} else {
+				
+				res.beforeFirst();
+				data_res = Funciones.MostrarRes(res, "5");		 
+			}	
+			
+					
+		} catch (Exception e) {
+			
+			System.out.println("Error al buscar contacto (buscarContacto/COnnections");
+		}
+	
+		return data_res;
+	}
 	
 
 }

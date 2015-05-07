@@ -98,6 +98,10 @@ public class Hilo extends Thread
 									data_resp=Case11(data_req);
 								case "12":
 									data_respD=Case12(data_req);
+									break;
+								case "13":
+									data_respD=Case13(data_req);
+									break;
 								default:
 									break;
 							}
@@ -285,6 +289,14 @@ public class Hilo extends Thread
 		String[][] data_res;
 		data_res=Connections.solicitarUnUsuario(data);
 		
+		return data_res;
+	}
+	
+	public String[][] Case13(String[] data) {
+		String[][] data_res;
+		data_res = Connections.buscarMovimiento(data);
+		
+		System.out.println(data_res[0][0]);
 		return data_res;
 	}
 	
