@@ -166,6 +166,7 @@ public class Connections
 
 			res.next();
 			int cod_u=res.getInt(1);
+			System.out.print(cod_u);
 			 sentencia=("insert into gastos values("+(cod_u+1)+","+data[1]);
 			res.close();
 			}
@@ -322,17 +323,17 @@ public class Connections
 
 		return data_res;
 	}
-	public static String[] eliminarMovimiento (String[] data){
+	public static String[][] eliminarMovimiento (String[] data){
 		
 		Connection conexion=getConnection();
-		String[] data_res=new String[2];
+		String [][] data_respD = null;
 		try
 		{
 			Statement query=conexion.createStatement();
-			int semaf=query.executeUpdate("delete from gastos where cod_gasto="+data[1]);
+			int semaf=query.executeUpdate("delete from gastos where cod_gasto="+data[2]);
 			System.out.println("Movimiento con código "+data[1]+" eliminado correctamente");
-			data_res[0]="5";
-			data_res[1]=String.valueOf(semaf);
+			
+			data_respD=solicitarMovimientos(data);
 			
 			
 		}
@@ -340,7 +341,7 @@ public class Connections
 		{
 			System.out.println(e.getMessage().toString());
 		}
-		return data_res;
+		return data_respD;
 	}
 public static String[][] solicitarUnUsuario (String[] data){
 		
