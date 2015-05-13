@@ -303,4 +303,10 @@ public class Hilo extends Thread
 		return data_res;
 	}
 	
+	public String[][] Case14(String[] data){
+		String[][] data_res;
+		data_res = Connections.recogerDatosGrafica(data);
+		return data_res;
+	}
+	
 }

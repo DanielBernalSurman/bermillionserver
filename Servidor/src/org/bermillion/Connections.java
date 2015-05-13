@@ -386,11 +386,41 @@ public static String[][] solicitarUnUsuario (String[] data){
 					
 		} catch (Exception e) {
 			
-			System.out.println("Error al buscar contacto (buscarContacto/COnnections");
+			System.out.println("Error al buscar movimiento (buscarMovimiento/COnnections");
 		}
 	
 		return data_res;
 	}
+	
+	public static String[][] recogerDatosGrafica(String[] data) {
+		Connection conexion = getConnection();
+		String[][] data_res = null;
+try {
+			
+			Statement sta = conexion.createStatement();
+			ResultSet res = sta.executeQuery("select * from saldos where usuarios_cod_usuario="+data[1]+" order by fecha");
+					
+			
+			res.next();
+			if (res.getRow()==0) {
+				data_res= new String[1][2];
+				data_res[0][0]="13";
+				data_res[0][1]="No se encontró ningún saldo.";
+			} else {
+				
+				res.beforeFirst();
+				data_res = Funciones.MostrarRes(res, "13");		 
+			}	
+			
+					
+		} catch (Exception e) {
+			
+			System.out.println("Error al buscar datos (buscarDatosGráfica/COnnections");
+		}
+	
+		return data_res;
+	}
+	
 	
 
 }
