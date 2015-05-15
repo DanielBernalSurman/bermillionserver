@@ -421,6 +421,71 @@ try {
 		return data_res;
 	}
 	
+	public static String[][] solicitarUnContacto(String[] data) {
+		
+		Connection conexion=getConnection();
+		String[][] data_res=null;
+		try
+		{
+			Statement query=conexion.createStatement();
+			ResultSet res=query.executeQuery("select * from contactos where contacto_id="+data[1]);
+			data_res=Funciones.MostrarRes(res, data[0]);
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage().toString());
+		}
+		return data_res;
+	}
+	
+	public static void actualizarContacto(String[] data) {
+		
+Connection conexion=getConnection();
+		
+		try {
+			String sentencia=("update contactos set nombre='"+data[2]+"', apellido='"+data[3]+"', telefono='"+data[4]+"' where contacto_id="+data[5]);
+			
+			Statement orden=conexion.createStatement();
+			orden.execute(sentencia);
+
+		}
+		catch(Exception e) {
+			System.out.println("Error al insertar contacto (InsertarContacto/Connections)"+e.getMessage().toString());
+		}
+		
+		try{
+			
+			
+			conexion.close();
+		} catch(Exception e) {
+			System.out.println("Error insertar contacto");
+		}
+	}
+	
+	public static void eliminarContacto(String[] data) {
+		
+		Connection conexion=getConnection();
+				
+				try {
+					String sentencia=("delete from contactos where contacto_id="+Integer.parseInt(data[2]));
+					
+					Statement orden=conexion.createStatement();
+					orden.execute(sentencia);
+
+				}
+				catch(Exception e) {
+					System.out.println("Error al borrar contacto (eliminarContacto/Connections)"+e.getMessage().toString());
+				}
+				
+				try{
+					
+					
+					conexion.close();
+				} catch(Exception e) {
+					System.out.println("Error borrar contacto");
+				}
+			}
+	
 	
 
 }
