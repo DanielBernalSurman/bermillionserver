@@ -114,7 +114,7 @@ public class Hilo extends Thread
 									data_resp=Case16(data_req);
 									break;
 								case "17":
-									data_resp=Case17(data_req);
+									data_respD=Case17(data_req);
 									break;
 								default:
 									break;
@@ -338,13 +338,13 @@ public class Hilo extends Thread
 		return data_res;
 	}
 	
-	public String[] Case17(String[] data) {
+	public String[][] Case17(String[] data) {
 		
 		Connections.eliminarContacto(data);
-		String[] data_res = new String[2];
-		data_res[0] = "17";
-		data_res[1] = "true";
-		
+		String[][] data_res;
+		data[0] = "6";
+		System.out.println("Usuario-->"+data[1]);
+		data_res = Connections.solicitarContactos(data);
 		return data_res;
 	}
 	
