@@ -88,7 +88,7 @@ public class Hilo extends Thread
 									data_respD=Case7(data_req);
 									break;
 								case "8":
-									data_resp=Case8(data_req);
+									data_respD=Case8(data_req);
 									break;
 								case "9":
 									data_respD=Case9(data_req);
@@ -262,13 +262,14 @@ public class Hilo extends Thread
 		return data_res;
 	}
 	
-	public String[] Case8(String[] data) {
+	public String[][] Case8(String[] data) {
 		
 		
 		Connections.InsertarContacto(data);
-		String[] data_res = new String[2];
-		data_res[0] = "8";
-		data_res[1] = "true";
+		String[][] data_res = null;
+		
+		data[0] = "6";
+		data_res = Connections.solicitarContactos(data);
 		
 		return data_res;
 	}
