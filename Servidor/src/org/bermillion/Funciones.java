@@ -33,6 +33,7 @@ public class Funciones {
 						for(int i=0;i<columns;++i)
 						{
 							data[j][i]=res.getString(i+1);
+							System.out.println(data[j][i]);
 						}
 						++j;
 					}

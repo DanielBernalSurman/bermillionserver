@@ -393,35 +393,34 @@ public static String[][] solicitarUnUsuario (String[] data){
 	}
 	
 	public static String[][] recogerDatosGrafica(String[] data) {
-		Connection conexion = getConnection();
-		String[][] data_res = null;
-try {
-			
-			Statement sta = conexion.createStatement();
-			ResultSet res = sta.executeQuery("select * from saldos where usuarios_cod_usuario="+data[1]+" order by fecha");
-					
-			
+		Connection conexion=getConnection();
+		String[][] data_res=null;
+		try{
+			String sentencia="Select * from saldos where usuarios_cod_usuario="+data[1]+" order by fecha";
+			Statement orden = conexion.createStatement();
+			ResultSet res=orden.executeQuery(sentencia);
 			res.next();
-			if (res.getRow()==0) {
-				data_res= new String[1][2];
-				data_res[0][0]="13";
-				data_res[0][1]="No se encontró ningún saldo.";
-			} else {
-				
+			if (res.getRow()==0){
+				data_res= new String [1][2];
+				data_res[0][0]="5";
+				data_res[0][1]="No se encontraron Saldos";
+			}else{
+			
 				res.beforeFirst();
-				data_res = Funciones.MostrarRes(res, "13");		 
-			}	
-			
-					
-		} catch (Exception e) {
-			
-			System.out.println("Error al buscar datos (buscarDatosGráfica/COnnections");
+				data_res=Funciones.MostrarRes(res, "13");
+				for(int i=0;i<3;i++){
+					System.out.println(data_res[1][i]);
+				}
+			}
 		}
-	
+		catch(Exception e){
+			System.out.println("Error al buscar saldos (recoger datos grafica/connections"+e.getMessage());
+			
+		}
 		return data_res;
 	}
 	
-	public static String[][] solicitarUnContacto(String[] data) {
+public static String[][] solicitarUnContacto(String[] data) {
 		
 		Connection conexion=getConnection();
 		String[][] data_res=null;

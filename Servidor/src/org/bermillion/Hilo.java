@@ -104,6 +104,9 @@ public class Hilo extends Thread
 								case "13":
 									data_respD=Case13(data_req);
 									break;
+								case "14":
+									data_respD=Case14(data_req);
+									break;
 								case "15":
 									data_respD=Case15(data_req);
 									break;
