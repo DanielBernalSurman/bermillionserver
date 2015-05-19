@@ -116,6 +116,11 @@ public class Hilo extends Thread
 								case "17":
 									data_respD=Case17(data_req);
 									break;
+								case "18":
+									data_resp=Case18(data_req);
+									break;
+								case "19":
+									data_respD=Case19(data_req);
 								default:
 									break;
 							}
@@ -348,6 +353,22 @@ public class Hilo extends Thread
 
 		data_res = Connections.solicitarContactos(data);
 		return data_res;
+	}
+	public String[] Case18(String[] data){
+		String[] data_res=new String[2];
+		data[0]="a";
+		Connections.InsertarAviso(data);
+		return data_res;
+		
+	}
+	
+	public String[][] Case19(String[] data){
+		
+		String[][] data_res;
+		data_res = Connections.solicitarAvisos(data);
+		
+		return data_res;
+		
 	}
 	
 }

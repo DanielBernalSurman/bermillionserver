@@ -484,6 +484,60 @@ Connection conexion=getConnection();
 					System.out.println("Error borrar contacto");
 				}
 			}
+	public static void InsertarAviso(String[] data){
+		Connection conexion=getConnection();
+		try {
+			Statement cod=conexion.createStatement();
+			
+
+			
+			String sentencia=("insert into avisos values("+data[1]+"')");
+			
+			Statement orden=conexion.createStatement();
+			orden.execute(sentencia);
+
+			
+		}
+		catch(Exception e) {
+			System.out.println("Error al insertar aviso (InsertarAviso/Connections)"+e.getMessage().toString());
+		}
+		
+		try{
+			
+			
+			conexion.close();
+		} catch(Exception e) {
+			System.out.println("Error insertar contacto");
+		}
+	}
+	
+	public static String[][] solicitarAvisos(String[] data){
+		Connection conexion = getConnection();
+		String[][] data_res = null;		
+		try
+		{
+			Statement query = conexion.createStatement();
+			ResultSet res = query.executeQuery("select * from avisos where usuarios_cod_usuario="+data[1]);
+			
+			res.next();
+			if (res.getRow()==0) {
+				data_res= new String[1][2];
+				data_res[0][0]=data[0];
+				data_res[0][1]="No se encontró ningún aviso.";
+			} else {
+				
+				res.beforeFirst();
+				data_res = Funciones.MostrarRes(res, data[0]);		 
+			}	
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage().toString());
+		}
+
+		return data_res;
+		
+	}
 	
 	
 
