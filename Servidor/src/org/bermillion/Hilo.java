@@ -365,6 +365,7 @@ public class Hilo extends Thread
 	public String[][] Case19(String[] data){
 		
 		String[][] data_res;
+		data[0] ="16";
 		data_res = Connections.solicitarAvisos(data);
 		
 		return data_res;
