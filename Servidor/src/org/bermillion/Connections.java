@@ -491,7 +491,8 @@ Connection conexion=getConnection();
 			
 
 			
-			String sentencia=("insert into avisos values("+data[1]+"')");
+			String sentencia=("insert into avisos set "+data[1]);
+			System.out.println(sentencia);
 			
 			Statement orden=conexion.createStatement();
 			orden.execute(sentencia);
