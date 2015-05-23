@@ -121,6 +121,19 @@ public class Hilo extends Thread
 									break;
 								case "19":
 									data_respD=Case19(data_req);
+									break;
+								case "20":
+									data_respD=Case20(data_req);
+									break;
+								case "21":
+									data_respD=Case21(data_req);
+									break;
+								case "22":
+									data_respD=Case22(data_req);
+									break;
+								case "23":
+									data_respD=Case23(data_req);
+									break;
 								default:
 									break;
 							}
@@ -373,6 +386,32 @@ public class Hilo extends Thread
 		
 		return data_res;
 		
+	}
+	
+	public String [][] Case20(String[] data){
+		String [][] data_res;
+		data_res = Connections.eliminarAviso(data);
+		
+		return data_res;
+	}
+	public String [][] Case21(String[] data){
+		String [][] data_res;
+		data_res = Connections.actualizarAviso(data);		
+		return data_res;
+	}
+	
+	public String [][] Case22(String[] data){
+		String[][] data_res;
+		data_res = Connections.solicitarUnAviso(data);
+		return data_res;
+	}
+	
+	public String [][] Case23(String[] data){
+		String[][]data_res;
+		data_res = Connections.buscarAviso(data);
+		data_res[0][0]="16";
+		return data_res;
+				
 	}
 	
 }

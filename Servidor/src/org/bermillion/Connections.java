@@ -402,8 +402,8 @@ public static String[][] solicitarUnUsuario (String[] data){
 			res.next();
 			if (res.getRow()==0){
 				data_res= new String [1][2];
-				data_res[0][0]="5";
-				data_res[0][1]="No se encontraron Saldos";
+				data_res[0][0]="11";
+				data_res[0][1]="No se encontraron Datos";
 			}else{
 			
 				res.beforeFirst();
@@ -539,6 +539,100 @@ Connection conexion=getConnection();
 		return data_res;
 		
 	}
+public static String[][] eliminarAviso (String[] data){
+		
+		Connection conexion=getConnection();
+		String [][] data_respD = null;
+		try
+		{
+			Statement query=conexion.createStatement();
+			int semaf=query.executeUpdate("delete from avisos where idavisos="+data[3]);
+			System.out.println("Aviso con código "+data[3]+" eliminado correctamente");
+			
+			data_respD=solicitarAvisos(data);
+			
+			
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage().toString());
+		}
+		return data_respD;
+	}
+public static String[][] actualizarAviso(String[] data) {
+	
+	String[][] data_respD=null;
+	Connection conexion=getConnection();
+		
+		try {
+			String sentencia=("update avisos set "+data[1]+" where idavisos="+data[2]);
+			
+			Statement orden=conexion.createStatement();
+			orden.execute(sentencia);
+			
+			data_respD=solicitarAvisos(data);
+
+		}
+		catch(Exception e) {
+			System.out.println("Error al insertar contacto (InsertarContacto/Connections)"+e.getMessage().toString());
+		}
+		
+		try{
+			
+			
+			conexion.close();
+		} catch(Exception e) {
+			System.out.println("Error insertar contacto");
+		}
+		return data_respD;
+	}
+
+public static String[][] solicitarUnAviso (String[] data){
+	
+	Connection conexion=getConnection();
+	String[][] data_res=null;
+	try
+	{
+		Statement query=conexion.createStatement();
+		ResultSet res=query.executeQuery("select * from avisos where idavisos="+data[1]);
+		data_res=Funciones.MostrarRes(res, data[0]);
+		data_res[0][0] = "17";
+	}
+	catch(Exception e)
+	{
+		System.out.println(e.getMessage().toString());
+	}
+	return data_res;
+}
+
+public static String[][] buscarAviso(String[] data) {
+	Connection conexion = getConnection();
+	String[][] data_res = null;
+	try {
+		
+		Statement sta = conexion.createStatement();
+		ResultSet res = sta.executeQuery("select * from avisos where nombre like '%"+data[1]+"%' or"
+				+ " descripcion like '%"+data[1]+"%'");
+		
+		res.next();
+		if (res.getRow()==0) {
+			data_res= new String[1][2];
+			data_res[0][0]=data[0];
+			data_res[0][1]="No se encontró ningún aviso.";
+		} else {
+			
+			res.beforeFirst();
+			data_res = Funciones.MostrarRes(res, data[0]);		 
+		}	
+		
+				
+	} catch (Exception e) {
+		
+		System.out.println("Error al buscar Aviso (buscar/AvisoCOnnections");
+	}
+
+	return data_res;
+}
 	
 	
 
