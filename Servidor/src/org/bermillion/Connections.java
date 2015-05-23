@@ -396,7 +396,7 @@ public static String[][] solicitarUnUsuario (String[] data){
 		Connection conexion=getConnection();
 		String[][] data_res=null;
 		try{
-			String sentencia="Select * from saldos where usuarios_cod_usuario="+data[1]+" order by fecha";
+			String sentencia="Select * from saldos where usuarios_cod_usuario="+data[1];
 			Statement orden = conexion.createStatement();
 			ResultSet res=orden.executeQuery(sentencia);
 			res.next();
@@ -518,7 +518,7 @@ Connection conexion=getConnection();
 		try
 		{
 			Statement query = conexion.createStatement();
-			ResultSet res = query.executeQuery("select * from avisos where usuarios_cod_usuario="+data[1]);
+			ResultSet res = query.executeQuery("select idavisos, usuarios_cod_usuario, nombre, descripcion, DATE_FORMAT(fecha,'%d/%m/%Y') AS fechaok from avisos where usuarios_cod_usuario="+data[2]+" order by fecha");
 			
 			res.next();
 			if (res.getRow()==0) {
