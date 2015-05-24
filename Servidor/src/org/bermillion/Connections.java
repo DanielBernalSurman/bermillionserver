@@ -154,8 +154,8 @@ public class Connections
 		String sentencia;
 		System.out.print(data[2]);
 		System.out.print(data[1]);
-			if((Integer.parseInt(data[2])>0)){
-				sentencia=("update gastos set "+data[1]+"where cod_gasto="+data[2]);
+			if((Integer.parseInt(data[3])>0)){
+				sentencia=("update gastos set "+data[2]+"where cod_gasto="+data[3]);
 			
 			}
 
@@ -167,7 +167,7 @@ public class Connections
 			res.next();
 			int cod_u=res.getInt(1);
 			System.out.print(cod_u);
-			 sentencia=("insert into gastos values("+(cod_u+1)+","+data[1]);
+			 sentencia=("insert into gastos values("+(cod_u+1)+","+data[2]);
 			res.close();
 			}
 			Statement orden=conexion.createStatement();
@@ -323,25 +323,22 @@ public class Connections
 
 		return data_res;
 	}
-	public static String[][] eliminarMovimiento (String[] data){
+	public static void eliminarMovimiento (String[] data){
 		
 		Connection conexion=getConnection();
-		String [][] data_respD = null;
+		
 		try
 		{
 			Statement query=conexion.createStatement();
-			int semaf=query.executeUpdate("delete from gastos where cod_gasto="+data[2]);
-			System.out.println("Movimiento con código "+data[1]+" eliminado correctamente");
-			
-			data_respD=solicitarMovimientos(data);
-			
-			
+			query.executeUpdate("delete from gastos where cod_gasto="+data[2]);
+			System.out.println("Movimiento con código "+data[2]+" eliminado correctamente");
+	
 		}
 		catch(Exception e)
 		{
 			System.out.println(e.getMessage().toString());
 		}
-		return data_respD;
+		
 	}
 public static String[][] solicitarUnUsuario (String[] data){
 		

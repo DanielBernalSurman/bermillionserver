@@ -76,7 +76,7 @@ public class Hilo extends Thread
 									data_resp=Case3(data_req);
 									break;
 								case "4":
-									data_resp=Case4(data_req);
+									data_respD=Case4(data_req);
 									break;
 								case "5":
 									data_respD=Case5(data_req);
@@ -244,14 +244,14 @@ public class Hilo extends Thread
 		return data_res;
 	}
 	
-	public String[] Case4(String[] data)
+	public String[][] Case4(String[] data)
 	{
-		String[] data_res= new String[3];
+		String[][] data_res;
 		Connections.InsertarMovimientoHogar(data);
+		data_res=Connections.solicitarMovimientos(data);
 		
-		data_res[0]="4";
-		data_res[1]="";
-		data_res[2]="true";
+		data_res[0][0]="5";
+		data_res[0][1]=data[1];
 		
 		return data_res;
 	}
@@ -311,7 +311,11 @@ public class Hilo extends Thread
 	public String[][] Case11(String[] data){
 		
 		String [][] data_respD;
-		data_respD=Connections.eliminarMovimiento(data);
+		Connections.eliminarMovimiento(data);
+		data_respD=Connections.solicitarMovimientos(data);
+		
+		data_respD[0][0]="5";
+		
 		
 		return data_respD;
 		
