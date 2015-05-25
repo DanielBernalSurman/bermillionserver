@@ -35,7 +35,7 @@ public class Connections
 	}
 	
 	/*Ingresar nuevo usuario*/
-	public static void RegistrarUsuario(String reg)
+	public static void RegistrarUsuario(String[] data)
 	{
 		Connection conexion=getConnection();
 		try
@@ -44,8 +44,9 @@ public class Connections
 			ResultSet res=cod.executeQuery("select MAX(cod_usuario) from usuarios");
 			res.next();
 			int cod_u=res.getInt(1);
-			
-			reg="insert into usuarios values('"+(cod_u+1)+"',"+reg;
+			data[6] = Seguridad.Codificar(data[6]);
+			String reg="insert into usuarios values('"+(cod_u+1)+"','" +data[1]+ "','" +data[2]+ "','" +data[3]+ "','" +data[4]+ "',"+data[5]+",'" +data[6]+"',"+data[7]+ ")";
+
 			
 			Statement orden=conexion.createStatement();
 			orden.execute(reg);
@@ -113,6 +114,8 @@ public class Connections
 			String bdpass=result.getString(1);
 			String cod_user=result.getString(2);
 			String tipo_user=result.getString(3);
+			
+			bdpass=Seguridad.Decodificar(bdpass);
 			
 			if(pass.equals(bdpass))
 			{
