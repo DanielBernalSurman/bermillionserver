@@ -318,9 +318,6 @@ public class Hilo extends Thread
 		data_respD=Connections.solicitarMovimientos(data);
 		
 		return data_respD;
-		
-		
-		
 	}
 	
 	public String[][] Case12(String[] data){
