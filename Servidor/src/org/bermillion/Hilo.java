@@ -394,7 +394,9 @@ public class Hilo extends Thread
 	
 	public String [][] Case20(String[] data){
 		String [][] data_res;
+		
 		data_res = Connections.eliminarAviso(data);
+		
 		
 		return data_res;
 	}

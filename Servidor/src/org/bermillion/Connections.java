@@ -546,9 +546,10 @@ public static String[][] eliminarAviso (String[] data){
 		try
 		{
 			Statement query=conexion.createStatement();
-			int semaf=query.executeUpdate("delete from avisos where idavisos="+data[3]);
+			query.executeUpdate("delete from avisos where idavisos="+data[3]);
 			System.out.println("Aviso con código "+data[3]+" eliminado correctamente");
 			
+			data[0] = "19";
 			data_respD=solicitarAvisos(data);
 			
 			
