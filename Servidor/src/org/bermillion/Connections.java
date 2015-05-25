@@ -406,7 +406,6 @@ public static String[][] solicitarUnUsuario (String[] data){
 				data_res[0][1]="No se encontraron Datos";
 			}else{
 			
-				res.beforeFirst();
 				data_res=Funciones.MostrarRes(res, "13");
 				for(int i=0;i<3;i++){
 					System.out.println(data_res[1][i]);
@@ -546,8 +545,8 @@ public static String[][] eliminarAviso (String[] data){
 		try
 		{
 			Statement query=conexion.createStatement();
-			query.executeUpdate("delete from avisos where idavisos="+data[3]);
-			System.out.println("Aviso con código "+data[3]+" eliminado correctamente");
+			query.executeUpdate("delete from avisos where idavisos="+data[2]);
+			System.out.println("Aviso con código "+data[2]+" eliminado correctamente");
 			
 			data[0] = "19";
 			data_respD=solicitarAvisos(data);
