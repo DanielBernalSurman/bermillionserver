@@ -73,7 +73,7 @@ public class Hilo extends Thread
 									data_resp=Case2(data_req);
 									break;
 								case "3":
-									data_resp=Case3(data_req);
+									data_respD=Case3(data_req);
 									break;
 								case "4":
 									data_respD=Case4(data_req);
@@ -235,9 +235,9 @@ public class Hilo extends Thread
 		
 		return data_res;
 	}
-	private String[] Case3(String[] data)
+	private String[][] Case3(String[] data)
 	{
-		String[] data_res=new String[3];
+		String[][] data_res= null;
 		
 		data_res = Connections.Login(data[1], data[2]);
 		

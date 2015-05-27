@@ -100,10 +100,10 @@ public class Connections
 		
 		return existe;
 	}
-	public static String[] Login(String user, String pass)
+	public static String[][] Login(String user, String pass)
 	{
 		Connection conexion=getConnection();
-		String[] data_res = new String[4];
+		String[][] data_res = new String [2][];
 		try
 		{
 			Statement query=conexion.createStatement();
@@ -119,15 +119,21 @@ public class Connections
 			
 			if(pass.equals(bdpass))
 			{
-				data_res[0]="3";
-				data_res[1]="true";
-				data_res[2]=cod_user;
-				data_res[3]=tipo_user;
+				data_res[0] = new String[4];
+				
+				data_res[0][0]="3";
+				data_res[0][1]="true";
+				data_res[0][2]=cod_user;
+				data_res[0][3]=tipo_user;
+				
+				data_res[1] = recogerDatosGrafica(data_res[0][2]);
 			}
 			else 
 			{
-				data_res[0]="3";
-				data_res[1]="false";
+				data_res[0] = new String[2];
+				
+				data_res[0][0]="3";
+				data_res[0][1]="false";
 			}
 			
 			result.close();
@@ -392,23 +398,30 @@ public static String[][] solicitarUnUsuario (String[] data){
 		return data_res;
 	}
 	
-	public static String[][] recogerDatosGrafica(String[] data) {
+	public static String[] recogerDatosGrafica(String user_id) {
 		Connection conexion=getConnection();
-		String[][] data_res=null;
+		String[] data_res=null;
 		try{
-			String sentencia="Select * from saldos where usuarios_cod_usuario="+data[1];
+			String sentencia="Select * from saldos where usuarios_cod_usuario="+user_id;
 			Statement orden = conexion.createStatement();
 			ResultSet res=orden.executeQuery(sentencia);
 			res.next();
 			if (res.getRow()==0){
-				data_res= new String [1][2];
-				data_res[0][0]="11";
-				data_res[0][1]="No se encontraron Datos";
+				data_res= new String [1];
+				data_res[0] = "0";
+				
 			}else{
 			
-				data_res=Funciones.MostrarRes(res, "13");
-				for(int i=0;i<3;i++){
-					System.out.println(data_res[1][i]);
+				int filas;
+				res.last();
+				filas = res.getRow();
+				res.beforeFirst();
+				
+				data_res = new String[filas];
+
+				for (int j = 0;j<data_res.length; ++j) {
+					
+					data_res[j] = res.getString(2);
 				}
 			}
 		}
