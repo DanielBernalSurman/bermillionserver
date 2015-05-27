@@ -104,9 +104,9 @@ public class Hilo extends Thread
 								case "13":
 									data_respD=Case13(data_req);
 									break;
-								case "14":
+								/*case "14":
 									data_respD=Case14(data_req);
-									break;
+									break;*/
 								case "15":
 									data_respD=Case15(data_req);
 									break;
@@ -241,6 +241,12 @@ public class Hilo extends Thread
 		
 		data_res = Connections.Login(data[1], data[2]);
 		
+		for(int i=0;i<data_res.length;++i) {
+			for(int j=0;j<data_res[i].length;++j) {
+				System.out.println("dato:"+data_res[i][j]+"\n");
+			}
+		}
+		
 		return data_res;
 	}
 	
@@ -337,11 +343,11 @@ public class Hilo extends Thread
 		return data_res;
 	}
 	
-	public String[][] Case14(String[] data){
+	/*public String[][] Case14(String[] data){
 		String[][] data_res;
 		data_res = Connections.recogerDatosGrafica(data);
 		return data_res;
-	}
+	}*/
 	
 	public String[][] Case15(String[] data) {
 		

@@ -422,7 +422,8 @@ public static String[][] solicitarUnUsuario (String[] data){
 
 				for (int j = 0;j<data_res.length; ++j) {
 					
-					data_res[j] = res.getString(2);
+					res.next();
+					data_res[j] = res.getString(3);
 				}
 			}
 		}
@@ -430,6 +431,9 @@ public static String[][] solicitarUnUsuario (String[] data){
 			System.out.println("Error al buscar saldos (recoger datos grafica/connections"+e.getMessage());
 			
 		}
+		
+		
+		
 		return data_res;
 	}
 	
