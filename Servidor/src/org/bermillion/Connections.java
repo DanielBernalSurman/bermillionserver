@@ -144,6 +144,7 @@ public class Connections
 			System.out.println("Error al Loguear (Login/Connections)"+e.getMessage().toString());
 		}
 		
+		/*jjj*/
 		try
 		{
 			conexion.close();
