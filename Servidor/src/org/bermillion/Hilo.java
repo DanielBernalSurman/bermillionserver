@@ -313,9 +313,11 @@ public class Hilo extends Thread
 		String [][] data_respD;
 		Connections.eliminarMovimiento(data);
 		
-		data[0] = "5";
+		
 		
 		data_respD=Connections.solicitarMovimientos(data);
+		data_respD[0][0]="5";
+		
 		
 		return data_respD;
 	}

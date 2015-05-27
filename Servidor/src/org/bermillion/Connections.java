@@ -346,7 +346,7 @@ public class Connections
 		}
 		catch(Exception e)
 		{
-			System.out.println(e.getMessage().toString());
+			System.out.println("Error al borrar"+e.getMessage().toString());
 		}
 		
 	}
