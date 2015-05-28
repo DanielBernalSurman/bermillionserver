@@ -110,30 +110,42 @@ public class Connections
 			ResultSet result=query.executeQuery("select password,cod_usuario,tipo from usuarios where nombre_usuario='"+user+"'");
 			
 			result.next();
-			
-			String bdpass=result.getString(1);
-			String cod_user=result.getString(2);
-			String tipo_user=result.getString(3);
-			
-			bdpass=Seguridad.Decodificar(bdpass);
-			
-			if(pass.equals(bdpass))
-			{
-				data_res[0] = new String[4];
-				
-				data_res[0][0]="3";
-				data_res[0][1]="true";
-				data_res[0][2]=cod_user;
-				data_res[0][3]=tipo_user;
-				
-				data_res[1] = recogerDatosGrafica(data_res[0][2]);
-			}
-			else 
+			if (result.getRow() == 0)
 			{
 				data_res[0] = new String[2];
 				
 				data_res[0][0]="3";
 				data_res[0][1]="false";
+				data_res[1] = new String[1];
+			} else {
+				
+				String bdpass=result.getString(1);
+				String cod_user=result.getString(2);
+				String tipo_user=result.getString(3);
+				
+				bdpass=Seguridad.Decodificar(bdpass);
+			
+			
+				
+				if(pass.equals(bdpass))
+				{
+					data_res[0] = new String[4];
+					
+					data_res[0][0]="3";
+					data_res[0][1]="true";
+					data_res[0][2]=cod_user;
+					data_res[0][3]=tipo_user;
+					
+					data_res[1] = recogerDatosGrafica(data_res[0][2]);
+				}
+				else 
+				{
+					data_res[0] = new String[2];
+					
+					data_res[0][0]="3";
+					data_res[0][1]="false";
+					data_res[1] = new String[1];
+				}
 			}
 			
 			result.close();
@@ -376,8 +388,8 @@ public static String[][] solicitarUnUsuario (String[] data){
 		try {
 			
 			Statement sta = conexion.createStatement();
-			ResultSet res = sta.executeQuery("select * from gastos where descripcion like '%"+data[1]+"%' or"
-					+ " fecha like '%"+data[1]+"%' or importe like '%"+data[1]+"%' or concepto like '%"+data[1]+"%'");
+			ResultSet res = sta.executeQuery("select * from gastos where (descripcion like '%"+data[1]+"%' or"
+					+ " fecha like '%"+data[1]+"%' or importe like '%"+data[1]+"%' or concepto like '%"+data[1]+"%') and usuarios_cod_usuario="+data[2]);
 			
 			res.next();
 			if (res.getRow()==0) {
@@ -629,8 +641,8 @@ public static String[][] buscarAviso(String[] data) {
 	try {
 		
 		Statement sta = conexion.createStatement();
-		ResultSet res = sta.executeQuery("select * from avisos where nombre like '%"+data[1]+"%' or"
-				+ " descripcion like '%"+data[1]+"%'");
+		ResultSet res = sta.executeQuery("select * from avisos where (nombre like '%"+data[1]+"%' or"
+				+ " descripcion like '%"+data[1]+"%') and usuarios_cod_usuario="+data[2]);
 		
 		res.next();
 		if (res.getRow()==0) {

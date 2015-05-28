@@ -53,9 +53,6 @@ public class Hilo extends Thread
 							{
 								
 								data_req=(String[])ois.readObject();
-								for(int i=0;i==data_req.length;i++){
-									System.out.println(data_req[i]);
-								}
 								
 							}
 							catch(Exception e)
@@ -98,6 +95,7 @@ public class Hilo extends Thread
 									break;
 								case "11":
 									data_respD=Case11(data_req);
+									break;
 								case "12":
 									data_respD=Case12(data_req);
 									break;
