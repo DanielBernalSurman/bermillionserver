@@ -405,13 +405,15 @@ public class Hilo extends Thread
 	}
 	public String [][] Case21(String[] data){
 		String [][] data_res;
-		data_res = Connections.actualizarAviso(data);		
+		data_res = Connections.actualizarAviso(data);	
+		data_res[0][0]="16";
 		return data_res;
 	}
 	
 	public String [][] Case22(String[] data){
 		String[][] data_res;
 		data_res = Connections.solicitarUnAviso(data);
+
 		return data_res;
 	}
 	
