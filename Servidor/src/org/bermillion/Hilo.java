@@ -399,6 +399,7 @@ public class Hilo extends Thread
 		String [][] data_res;
 		
 		data_res = Connections.eliminarAviso(data);
+		data_res[0][0]="16";
 		
 		
 		return data_res;
