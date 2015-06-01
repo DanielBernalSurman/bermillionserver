@@ -595,7 +595,7 @@ public static String[][] actualizarAviso(String[] data) {
 	Connection conexion=getConnection();
 		/*borrar esta linea*/
 		try {
-			String sentencia=("update avisos set "+data[1]+" where idavisos="+data[2]);
+			String sentencia=("update avisos set "+data[1]+" where idavisos="+data[3]);
 			
 			Statement orden=conexion.createStatement();
 			orden.execute(sentencia);
