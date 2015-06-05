@@ -323,8 +323,8 @@ public class Connections
 		try {
 			
 			Statement sta = conexion.createStatement();
-			ResultSet res = sta.executeQuery("select * from contactos where nombre like '%"+data[1]+"%' or"
-					+ " apellido like '%"+data[1]+"%' or telefono like '%"+data[1]+"%'");
+			ResultSet res = sta.executeQuery("select * from contactos where (nombre like '%"+data[1]+"%' or"
+					+ " apellido like '%"+data[1]+"%' or telefono like '%"+data[1]+"%') and usuarios_cod_usuario="+data[2]);
 			
 			res.next();
 			if (res.getRow()==0) {
@@ -575,8 +575,8 @@ public static String[][] eliminarAviso (String[] data){
 		try
 		{
 			Statement query=conexion.createStatement();
-			query.executeUpdate("delete from avisos where idavisos="+data[2]);
-			System.out.println("Aviso con código "+data[2]+" eliminado correctamente");
+			query.executeUpdate("delete from avisos where idavisos="+data[1]);
+			System.out.println("Aviso con código "+data[1]+" eliminado correctamente");
 			
 			data[0] = "19";
 			data_respD=solicitarAvisos(data);
